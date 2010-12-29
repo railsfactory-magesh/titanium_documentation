@@ -300,9 +300,32 @@ window.add(button);
 window.open();  
 </code>
 
+## Detecting changes to the map's view
+
+In order to get the current latitude, longitude, latitudeDelta, longitudeDelta based on the viewable map area, you need to attach a `regionChanged` listener to the mapView and retrieve the attributes from the event object. 
+The event object represents the map region that is visible.
+
+<code class="javascript">
+var mapView = Ti.Map.createView({
+	mapType: Ti.Map.STANDARD_TYPE,
+	region:{latitude:33.74511, longitude:-84.38993, 
+			latitudeDelta:0.5, longitudeDelta:0.5},
+	animate:true,
+	regionFit:true,
+	userLocation:true
+});
+
+mapView.addEventListener('regionChanged', function(e) {
+  var latitude = e.latitude;
+  var longitude = e.longitude;
+  var latitudeDelta = e.latitudeDelta;
+  var longitudeDelta = e.longitudeDelta;
+});
+</code>
+
 ## Drawing annotations
 
-An annotation is created with `Ti.Map.createAnnotation method`, and can be customized in every part, pin image, color, callout etc.
+An annotation is created with `Ti.Map.createAnnotation` method, and can be customized in every part, pin image, color, callout etc.
 An annotation can be added at creation time with array attribute `annotations` in `MapView`, or at runtime calling `addAnnotation` method on `MapView`.
 
 <code class="javascript">
@@ -326,7 +349,7 @@ var mapView = Ti.Map.createView({
 	annotations:[apple]
 }); 
 window.add(mapView);
-window.open();  
+window.open();    
 </code>   
 
 As shown on iPhone:
@@ -335,6 +358,41 @@ As shown on iPhone:
 
 and on Android:
 ![Annotation on Android](http://img.skitch.com/20101209-ciickp43ykkt4qup55dcau79a7.png)
+
+## Drawing custom annotations
+
+Using the same method outlined above, simply replace the `pincolor` attribute with the `image` attribute in the `Ti.Map.createAnnotation` method call.
+
+<code class="javascript">
+var window = Ti.UI.createWindow();
+var apple = Ti.Map.createAnnotation({
+	latitude:37.33168900,
+	longitude:-122.03073100,
+	title:"Apple HQ",
+	subtitle:'Cupertino, CA',
+	image: "images/appcelerator.png",
+	animate:true,
+	rightButton: 'images/apple_logo.jpg'
+}); 
+var mapView = Ti.Map.createView({
+	mapType: Ti.Map.STANDARD_TYPE,
+	region:{latitude:33.74511, longitude:-84.38993, 
+			latitudeDelta:30, longitudeDelta:30},
+	animate:true,
+	regionFit:true,
+	userLocation:false,
+	annotations:[apple]
+}); 
+window.add(mapView);
+window.open();    
+</code>   
+
+As shown on iPhone:
+
+![Custom Annotation on iPhone](../assets/images/guides/location/iPhone_custom_annotation.png)
+
+and on Android:
+![Custom Annotation on Android](../assets/images/guides/location/Android_custom_annotation.png)
 
 ## Drawing routes
 <note>
