@@ -109,3 +109,55 @@ Review the console output to aid with debugging as you develop:
 
 
 Review the [Titanium.API docs](http://developer.appcelerator.com/apidoc/mobile/latest/Titanium.API-module) for more information.
+
+#Beta testing iOS applications Ad-Hoc
+
+Since Titanium Developer 1.3 it's possible to use the generated Xcode project to create an Ad Hoc beta version of your application.
+
+##1. Add devices to the Provisioning Portal
+
+You will need the device name's and UDID's from the iOS devices the application will run on. An easy way to get those information is to ask your beta testers to install [Ad Hoc Helper](http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=285691333&mt=8 "iTunes link") on their device. This application will generate an email containing the information you need.
+Now go to section **Devices** in the Provisioning Portal, click on the button **Add devices** and add the devices.
+
+##2. Generate a Development Provisioning Profile
+
+In order for the iOS devices to be able to run the application, they need to be in the Development Provisioning Profile you've used to build the application.
+In the section **Provisioning**, go to the tab **Development** and click on the button **New profile**. Now select the devices you want your application to run on and click on the **Submit** button.
+Refresh your browser until the status field reads **Active**. Now click the **Download** button and save the file to disk.
+
+##3. Add the Provisioning Profile to your project
+
+In Titanium Developer and go to the **Run on Device** tab. Under *Select Provisioning Profile*, select the profile you've saved to disk.
+This will start Xcode and ask you to add the profile to your Library. Confirm this.
+
+##4. Create the binary for your testers
+
+1.  Create a new folder in Finder (e.g. **Ad Hoc**)
+2.  In this folder, create another folder called **Payload** (case-sensitive)
+3.  Copy your 512x512px appicon as **iTunesArtwork** (without extension) to the Ad Hoc folder (optional)
+4.  Double-click the **.xcodeproj** in the *build/iphone* folder of your project
+5.  In Xcode, select **Release** as the Active Configuration
+6.  In the menu, select **Build** > **Clean All Targets**
+7.  Select **Build** > **Build**
+8.  Right-click your project in the *Groups & Files* section and select *Reveal in Finder*
+9.	Navigate to the *iphone/build/Release-iphoneos/* folder
+10.	This folder contains three files *MyApp*, *MyApp.ipa* and *MyApp.app.dSYM*
+11.	Copy MyApp (the file without extension) to the Payload folder
+
+Once you've completed above steps, navigate to the Ad Hoc folder in your **Terminal.app**. Now bundle the app using the following command:
+
+<code>
+	zip -r MyApp.ipa iTunesArtwork Payload
+</code>
+
+<note>
+	The command-line **zip** utility is required as the default OSX archiver adds certain files to the archive, which makes Windows iTunes users unable to install the beta on their device.
+</note>
+
+##5. Distribute the application to your beta testers
+
+Send the *.ipa* file you've created in the previous step along with the *.mobileprovision* file you've used to build the application, to your beta testers. To install the application on device, beta-testers now need to perform the following steps:
+
+1. Drag the .mobileprovision file to the Library section in iTunes
+2. Double-click the .ipa file to add it to iTunes
+3. Sync an iOS device to install the application
