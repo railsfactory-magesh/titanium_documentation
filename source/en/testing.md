@@ -112,7 +112,7 @@ Review the [Titanium.API docs](http://developer.appcelerator.com/apidoc/mobile/l
 
 #Beta testing iOS applications Ad-Hoc
 
-Since Titanium Developer 1.3 it's possible to use the generated Xcode project to create an Ad Hoc beta version of your application.
+Since Titanium Mobile 1.3.0 it's possible to use the generated Xcode project to create an Ad Hoc beta version of your application.
 
 ##1. Add devices to the Provisioning Portal
 
