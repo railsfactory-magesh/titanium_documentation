@@ -17,11 +17,12 @@ The application code can ask if the location service is enabled with the propert
 
 # Geolocation
 
-In [Titanium Geolocation module](http://developer.appcelerator.com/apidoc/mobile/latest/Ti.Geolocation-module) are grouped all features needed to explot the location services.
+In [Titanium Geolocation module](http://developer.appcelerator.com/apidoc/mobile/latest/Ti.Geolocation-module) 
+are grouped all features needed to exploit location services.
 
 ## Current position
 
-`Ti.Geolocation.getCurrentPosition` method is used to know the current position of the device.
+`Ti.Geolocation.getCurrentPosition` method is used to determine the current position of the device.
 
 <code class="javascript">
 var window= Ti.UI.createWindow();
@@ -52,10 +53,10 @@ Ti.Geolocation.getCurrentPosition(function(e) {
 window.open();     
 </code>
 
-The response contains all location informations that the device retrieves.
+The response contains all location information that the device retrieves.
 
 ## Monitor position
-In quite similar way, it's possible register to be notified when the location changes:
+Similarly, it's possible to register to be notified when the device location changes:
 
 <code class="javascript">
 var window= Ti.UI.createWindow();
@@ -88,8 +89,9 @@ window.open();
 
 ## Forward and reverse geocoding
 
-A couple of useful methods are provided to translate from address to coordinates (`Ti.Geolocation.forwardGeocoder`) and from coordinates to address (`Ti.Geolocation.reverseGeocoder`); both are asynchronous methods requiring a callback function to process the response as argument.
-The following example shows a simple use of both of them.
+A couple of useful methods are provided to translate from address to coordinates (`Ti.Geolocation.forwardGeocoder`) 
+and from coordinates to address (`Ti.Geolocation.reverseGeocoder`).  Both are asynchronous methods requiring a callback 
+function to process the response as argument. The following example shows a simple use of both of them.
 
 <code class="javascript">
 var window= Ti.UI.createWindow();
@@ -148,22 +150,13 @@ Ti.Geolocation.reverseGeocoder(latitude,longitude,function(evt) {
 window.open();            
 </code>
 
-This is how is shown on iPhone:
-
-![Geolocation on iPhone](http://img.skitch.com/20101209-8uirkadjnmisnjakpwxxubc7x8.png)
-
-and on Android
-![Geolocation on Android](http://img.skitch.com/20101209-nnqa5d7bw4u476uf5nam1nk6u4.png)
-
-
 # Compass
 
-Following the location philosophy, the compass is handled through a couple of asynchronuous methods.
-The `Ti.Geolocation.hasCompass` is used to know if the device has a compass or not.
+In addition to the GPS APIs, Titanium exposes the device compass as well - to determine if your device has a compass, you can use `Ti.Geolocation.hasCompass`.
 
 ## Current Heading
 
-A `heading` event contais all the needed informations to know how the device is oriented.
+A `heading` event contains all the information necessary to determine the device orientation:
 
 <code class="javascript">
 var window= Ti.UI.createWindow();
@@ -191,7 +184,7 @@ window.open();
 
 ## Monitor Heading
 
-A `heading` event must be observed to follow the compass changes.
+A `heading` event must be observed to follow compass changes:
 
 <code class="javascript">
 var window= Ti.UI.createWindow();
@@ -219,20 +212,26 @@ window.open();
 
 # Native Maps
 
+Native map kits are provided on both iOS and Android to display geographical, navigation, and other location-based information.
+Most of this functionality is available through the `Ti.Map` namespace.
+
 <note>
-	To run map applications on Android emulator, a `API` Sdk must be choose to avoid `requires unavailable shared library com.google.android.maps` error.
+	To run map applications on Android emulator, a `API` SDK must be choose to run the application.  The Google Maps API extensions
+	are only available on the "Google enhanced" versions of the Android SDK.  Most commercial Android handsets run a version
+	of these "Google APIs", so you can safely assume most devices have access to them.  Also, a [Google Map key](http://developer.appcelerator.com/doc/mobile/android-maps) 
+	must be added to `tiapp.xml` to use Google Maps in production.  You can use the Kitchen Sink maps API key for development,
+	as shown below:
 </note>
 
-Moreover a [Google Map key](http://developer.appcelerator.com/doc/mobile/android-maps) have to be added to `tiapp.xml`
-
 <code class="xml">
-<property name="ti.android.google.map.api.key.development">0ZnKXkWA2dIAu2EM-OV4ZD2lJY3sEWE5TSgjJNg</property>
-<property name="ti.android.google.map.api.key.production">GET_ME_FROM_GOOGLE</property>
+	<property name="ti.android.google.map.api.key.development">0ZnKXkWA2dIAu2EM-OV4ZD2lJY3sEWE5TSgjJNg</property>
+	<property name="ti.android.google.map.api.key.production">GET_ME_FROM_GOOGLE</property>
 </code>
 
+
 ## Displaying a map
-You can add a map to a window using the creator `Ti.Map.createView`.
-A comprehnsive list of proterties and methods are documented in [Ti.Map](http://developer.appcelerator.com/apidoc/mobile/latest/Ti.Map-module);
+You can create a map to add to a window or view using the constructor `Ti.Map.createView`.
+A comprehensive list of properties and methods are documented in [Ti.Map](http://developer.appcelerator.com/apidoc/mobile/latest/Ti.Map-module).
 
 <code class="javascript">
 var window = Ti.UI.createWindow();
@@ -248,15 +247,17 @@ window.add(mapView);
 window.open();
 </code>
 
-The `mapType` attribute defines the rendering type; allowed values are:
+The `mapType` attribute defines the style of the native map - available values are:
 
 * Ti.Map.STANDARD_TYPE
 * Ti.Map.SATELLITE_TYPE
 * Ti.Map.HYBRID_TYPE
 
-The `region` attribute defines the center of viewport using latitude and longitude values and its size as delta of latitude and longitude (a latitude degree is about 111 Km, a longitude degree depends on the distance from equator.).
+The `region` attribute defines the center of viewport using latitude and longitude values and 
+its size as delta of latitude and longitude (a latitude degree is about 111 Km, a longitude 
+degree depends on the distance from equator.).
 
-`userLocation` enable the representation of current position on map, as a blue bullet point.
+`userLocation` enables the representation of the device's current position on map, as a blue bullet point.
 
 The previous example as shown on iPhone:
 
@@ -325,8 +326,8 @@ mapView.addEventListener('regionChanged', function(e) {
 
 ## Drawing annotations
 
-An annotation is created with `Ti.Map.createAnnotation` method, and can be customized in every part, pin image, color, callout etc.
-An annotation can be added at creation time with array attribute `annotations` in `MapView`, or at runtime calling `addAnnotation` method on `MapView`.
+An annotation is created with the `Ti.Map.createAnnotation` function, and can be customized by changing pin image, color, and popup contents.
+An annotation can be added at creation time with an array attribute `annotations` in `MapView`, or at runtime calling the `addAnnotation` method on `MapView`.
 
 <code class="javascript">
 var window = Ti.UI.createWindow();
@@ -361,7 +362,7 @@ and on Android:
 
 ## Drawing custom annotations
 
-Using the same method outlined above, simply replace the `pincolor` attribute with the `image` attribute in the `Ti.Map.createAnnotation` method call.
+Using the same method outlined above, simply replace the `pincolor` attribute with the `image` attribute in the `Ti.Map.createAnnotation` method call to place a custom map pin.
 
 <code class="javascript">
 var window = Ti.UI.createWindow();
@@ -399,7 +400,7 @@ and on Android:
 	Currently supported on iPhone only.
 </note>
 
-In order to draw a route an a `Mapview`, a set of points should be provided to build a `route` object, that can be added to a map view with `addRoute` method.
+In order to draw a route an a `Mapview`, a set of points should be provided to build a `route` object, that can be added to a map view with the `addRoute` method.
 
 For example, given a csv file of points:
 
