@@ -13,6 +13,10 @@ That being said, if you are looking to stay on the bleeding edge, or get a bug f
 You can download the latest continuous builds here:
 [http://build.appcelerator.net](http://build.appcelerator.net)
 
+It's important to check the SHA1 hash of the downloaded file to confirm it is not corrupt. Read the [Third-party Tools](tool_thirdparty.html#filesystem) guide to discover the tools we favor for this purpose.
+
+If you discover a corrupt package, simply download each previous day's release until you find one that is valid.
+
 # Installing the Build
 
 * Extract the mobilesdk zip into your Titanium installation folder.
