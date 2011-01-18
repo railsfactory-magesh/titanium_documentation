@@ -74,6 +74,11 @@ on device, you will need to pay a $99/year fee for the iOS developer program).  
 onscreen instructions.
 
 ## Preparing for Android development
+
+<note>
+The best guide to the complete Android setup procedure for Windows is available in [Installing on Windows](installing_on_windows.html).
+</note>
+
 Before doing any sort of Android development, you will need [Sun/Oracle Java SDK (JDK)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 installed on your system.  Note that this is NOT the same as the Java Runtime Environment (JRE) installed on many computers.
 
@@ -93,6 +98,8 @@ javac -version
 ~~~
 
 The default executables can be controlled by adjusting your system's PATH variable.
+
+If any of the commands above produce errors, they must be resolved for Titanium to work correctly.
 </info>
 
 For Android, you will need to [download and unzip the Android SDK](http://developer.android.com/sdk/index.html) somewhere on your system.  Once unzipped, run the `android` command from `[SDK HOME]/tools`.  This will bring up an attractive Java Swing UI which will allow you to install the various Android SDK components from the "Available Packages" side menu.
@@ -101,7 +108,7 @@ As a general rule, the "Installed Packages" menu screen should show the followin
 
 ![android-installed-packages-screenshot](../assets/images/guides/getting_started/android-installed-packages.png)
 
-The following table explains the significance of these packages.
+This table explains the significance of these packages.
 
 <table>
 <tr>
@@ -135,14 +142,24 @@ The following table explains the significance of these packages.
 
 ![android-virtual-devices-screenshot](../assets/images/guides/getting_started/android-virtual-devices.png)
 
-Titanium Developer expects the `adb` executable to be in the same location as the `android` tool, ie `[SDK HOME]/tools`, but Google has recently moved it to `[SDK HOME]/platform-tools`. Thus, it is necessary to either make a duplicate of `adb` and place it into `[SDK HOME]/tools` or, **if the OS supports it**, you can create a symbolic link:
+Titanium Developer expects the `adb` executable to be in the same location as the `android` tool, ie `[SDK HOME]/tools`, but Google has recently moved it to `[SDK HOME]/platform-tools`. Thus, it is necessary to create a symbolic link in `[SDK HOME]/tools` that references the new location.
+
+For Linux, create the symbolic link as follows:
 
 <code>
 cd [SDK HOME]/tools
 ln -s [SDK HOME]/platform-tools/adb
 </code>
 
-The advantage of using a symbolic link is that in the event that Android updates the `adb` executable in its original location, there will be no need for you to copy over the new file to `[SDK HOME]/tools` again.
+For Windows, you must create a symbolic link for `adb.exe` and its associated `AdbWinApi.dll`:
+
+<code>
+cd [SDK HOME]\tools
+mklink adb.exe ..\platform-tools\adb.exe
+mklink AdbWinApi.dll ..\platform-tools\AdbWinApi.dll
+</code>
+
+The advantage of using a symbolic link is in the event that Android updates the `adb` executable in its original location, there will be no need for you to copy over the new file to `[SDK HOME]/tools` again. However, if your OS doesn't support symbolic links, you may simply copy the files into `[SDK HOME]/tools`.
 
 You can find out more about the Android tools available to you in the [Android SDK documentation](http://developer.android.com/guide/index.html).
 
