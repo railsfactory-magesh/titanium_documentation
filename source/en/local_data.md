@@ -275,20 +275,30 @@ Titanium provides access to SQLite via its [Titanium.Database](http://developer.
 
 To open a database file, instantiate the `Titanium.Database` object with its `open()` or `install()`methods.
 
+Using `open()` will open a database file from the database directory within the application's directory structure on the device. On android, this is `applicationDataDirectory/../databases/`, thus residing in the same parent directory as the `applicationDataDirectory`. If a database file does not already exist with the same name, a new, empty (except for some system tables) SQLite database file will be automatically created.
+
 <code>
 var db = Ti.Database.open('weatherDB');
 </code>
 
-Using `open()` will open a database file "in place", at the filesystem location specified in its argument. If a relative path, or simply the database filename, is given in the argument, the device will attempt to access it in the database directory reserved for the application. On android, this is `applicationDataDirectory/../databases/`, thus residing in the same parent directory as the `applicationDataDirectory`. If a database file does not already exist there with the same name, a new, empty (except for some system tables) SQLite database file will be automatically created.
+This code will create a file with a filename of `weatherDB`. You may prefer to give it a `.sqlite` or `.db` extension, although this is not mandatory.
 
-Once the file exists, some tables may be created using the `execute()` method:
+On the other hand, `install()` will copy a pre-existing database file from Titanium's `Resources` directory, or one of its descendants, to `applicationDataDirectory/../databases/` and return a reference to the opened database. If a file already exists with the same name, the copy action will silently fail and the database will simply be opened.
+
+<code>
+var db = Ti.Database.install('/mydata/', 'weatherDB');
+</code>
+
+In this example, `weatherDB`, initlally stored in the `Resources/mydata/` directory, will be copied to the application's `databases` directory.
+
+Once the database exists and is opened, some tables may be created using the `execute()` method:
 
 <code>
 	db.execute('CREATE TABLE IF NOT EXISTS city (id INTEGER PRIMARY KEY, name VARCHAR(16) NOT NULL, continent VARCHAR(16) NOT NULL, temp_f VARCHAR(4), temp_c VARCHAR(4), condition_id INTEGER NOT NULL)');
 	db.execute('CREATE TABLE IF NOT EXISTS condition (id INTEGER PRIMARY KEY, summary VARCHAR(16) NOT NULL, icon TEXT NOT NULL)');
 </code>
 
-The `IF NOT EXISTS` part of these statements is standard SQLite syntax to ensure that when tables exist, regardless of whether they contain data or not, they will not be overwritten.  Hence, it's commonplace to run them when an application starts, to ensure that an application won't fail due to a missing database file or table structure.
+The `IF NOT EXISTS` part of these statements is standard SQLite syntax to ensure that tables will not be overwritten if they already exist.  Hence, it's commonplace to use them when an application starts, to ensure that an application won't fail due to a missing database file or table structure.
 
 ## Pre-populating a database
 
@@ -296,17 +306,9 @@ The `IF NOT EXISTS` part of these statements is standard SQLite syntax to ensure
 
 If you have a database that already contains data that you want to use for your application, there are a couple of ways that you can utilize it.
 
-The first is to embed it in the application package that you will distribute, by storing it during development in the Titanium's Resources directory or one of its descendents. As the resources directory is read-only, the database cannot be deleted once the application has been packaged.
+The first is to embed it in the application distribution package, by placing it during development in Titanium's `Resources` directory. As the `Resources` directory is read-only on the device, this file cannot be deleted once the application has been installed. Thus, `install()` will copy the file to the `applicationDataDirectory/../databases/` folder, resulting in two copies of this file.
 
-Unlike the `open()` method, `install()` will copy the file you pass to it to the `applicationDataDirectory/../databases/` folder, resulting in two copies of this file. If a file already exists with the same name, the copy action will silently fail.
-
-<code>
-var db = Ti.Database.open('/mydata/weatherDB');
-</code>
-
-In this example, weatherDB is stored in the `Resources/mydata/` directory.
-
-If timeliness of your data is crucial to your application's usefulness, consider whether it is appropriate to ship the application with a full database when it will be replaced soon after it's installed.
+If timeliness of your data is crucial to your application's usefulness, consider whether it is appropriate to ship the application with a full database when it will be replaced soon after initial install.
 
 ### Download from a remote resource
 

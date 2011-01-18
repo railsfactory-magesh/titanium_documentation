@@ -495,7 +495,7 @@ Be aware that only **major** releases of any of our software are officially supp
 </warning>
 
 <info>
-After downloading a *Continuous Build SDK*, it's important to check the SHA1 hash of the file to confirm it is not corrupt. We use [Hashtab](http://beeblebrox.org/) for this purpose although, obviously, your choice to use it is done so at your own risk.
+After downloading a *Continuous Build SDK*, it's important to check the SHA1 hash of the file to confirm it is not corrupt. We use [HashTab](http://beeblebrox.org/) for this purpose although, obviously, your choice to use it is done so at your own risk.
 </info>
 
 ### Locate your local Titanium SDK directory
@@ -654,3 +654,33 @@ See the [workaround for a missing adb](#workaround_for_a_missing_%3Ctt%3Eadb%3C/
 If you are not able to boot an emulator, and the **Screen** drop-down menu on your **Run Emulator** tab always shows "Loading..." as in the image below, refer to ticket [#2813](https://appcelerator.lighthouseapp.com/projects/32238-titanium-mobile/tickets/2813) for a possible solution.
 
 ![screenshot](../assets/images/guides/install_windows/troubleshoot/screenshot_01.png)
+
+## Titanium Diagnostics for Windows
+
+As a quick check to verify that environment variables have been been setup correctly and applications execute successfully, you can use the code below.
+
+You will need to run it twice; once as Administrator and once for the user account used when working with Titanium. These commands should execute without error except `SCons`, which is an optional component.
+
+Open a Windows `Command Prompt`, paste the following code into it, and press **Enter**.
+
+<code>
+cls
+echo %PATH%
+echo %JAVA_HOME%
+echo %android_sdk%
+java -version
+javac -version
+python -V
+adb version
+android list target
+git --version
+rem --- The following is optional ---
+scons -v
+rem
+</code>
+
+You can also find the code in [this](../assets/code/guides/install_windows/titanium-diag-for-windows.txt) text file.
+
+Once you have some output, right-click on the window, choose `Select All` from the context menu and press **Enter** to copy.
+
+If you are performing this step in order to create a [Q&A post](http://developer.appcelerator.com/questions/created), create two separate [Gists](https://gist.github.com/) (one for the Administrator & and one for the user). Do not edit the output; include any errors that were produced.

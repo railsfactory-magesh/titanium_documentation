@@ -30,6 +30,8 @@
 # Filesystem
 
 * [Eclipse ADT](http://developer.android.com/sdk/eclipse-adt.html) (Android Development Tools) DDMS / [File Explorer](http://developer.android.com/guide/developing/tools/ddms.html#file-explorer)
+* [HashTab](http://beeblebrox.org/) for checking [Continuous Builds](continuous_builds.html) on Windows
+* [sha1sum](http://manpages.ubuntu.com/manpages/intrepid/man1/sha1sum.1.html) for checking [Continuous Builds](continuous_builds.html) on Linux
 
 # Other
 

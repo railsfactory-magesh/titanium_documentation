@@ -1,0 +1,13 @@
+cls
+echo %PATH%
+echo %JAVA_HOME%
+echo %android_sdk%
+java -version
+javac -version
+python -V
+adb version
+android list target
+git --version
+rem --- The following is optional ---
+scons -v
+rem

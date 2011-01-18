@@ -85,7 +85,7 @@ Here's a convenient checklist that you may use for reference when creating new q
 
 ![question checklist](../assets/images/guides/contribute/question-and-answer-checklist-v1.png)
 
-# Submitting Bugs
+# Submitting Bug Reports
 
 We use [Lighthouse](https://appcelerator.lighthouseapp.com/projects/32238-titanium-mobile/tickets?q=state%3Aopen) as our bug ticketing system. It has a [powerful search syntax](http://help.lighthouseapp.com/faqs/getting-started/how-do-i-search-for-tickets) that you should get into the habit of using when you see any unexpected behavior from Titanium. This will save you a lot of time debugging issues with the core code that are impossible for you to fix, when you could be looking for a workaround instead.
 
@@ -254,7 +254,7 @@ Before you start, you will need to work through these points:
 
 * configure SSH, required for pushing branches to Github.  See "Generating SSH Keys" for [Linux](http://help.github.com/linux-key-setup/), [Mac OSX](http://help.github.com/mac-key-setup/) and [Windows](http://help.github.com/msysgit-key-setup/).
 
-## Some Quick Git Tips:
+## Some Quick Git Tips
 
 The following can make Git a little easier to use:
 
