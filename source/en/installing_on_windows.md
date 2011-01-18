@@ -1,13 +1,14 @@
 <summary>
 
-This guide provides step-by-step instructions for installing Titanium on a Windows 7 system.
+This guide provides step-by-step instructions for installing Titanium on a Windows 7 system. You will learn how to:
 
-*
-*
-*
+* Satisfy all of Titanium's system requirements and software prerequisites
+* Make the necessary changes to your environment configuration
+* Test and troubleshoot your installation
 
 </summary>
 
+Getting Titanium Developer up and running successfully can be tricky when you aren't used to it. The following instructions aim to give you a comprehensive knowledge of the configuration procedure, and guide you through every stage.
 
 # Pre-installation
 
@@ -316,44 +317,51 @@ Once the *Android SDK Tools* software has been installed, as explained in the [p
 
 ![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_02.png)
 
-* click the **Close** button
+* click the **Yes** button to restart ADB
 
 ![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_03.png)
+
+* click the **Close** button
+
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_04.png)
 
 ### Third-party SDKs
 
 So far, you have only installed Google's own, standard, SDKs. Now you can install the third-party APIs and tools, which includes Google's enhanced APIs that provide advanced features such as support for maps.
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_04.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_05.png)
 
 * select the **Available packages** category in the left panel
+* ensure that the **Display updates only** checkbox is enabled
 * ensure that the following packages are selected in the right panel
 * click the **Install Selected** button
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_05.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_06.png)
 
 * select the **Accept All** radio button
 * click the **Install** button to download and install the selected packages
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_06.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_07.png)
 
 * wait for the download and installation to complete
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_07.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_08.png)
 
 * click the **Yes** button to restart ADB
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_08.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_09.png)
 
 * click the **Close** button to complete the installation
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_09.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_10.png)
 
 * double-check that your package list resembles the following
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_10.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_11.png)
 
-<warning>Whenever you install or remove packages, it is vital to delete all the existing AVDs listed in the **Virtual devices** category. As this is so important, check it now to get into the habit.</warning>
+<warning>Whenever you install or remove packages, it is vital to delete all the existing AVDs listed in the **Virtual devices** category. As this is so important, check it now to get into the habit.  See screen below</warning>
+
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_12.png)
 
 ## Workaround for a missing `adb`
 <info>Due to a recent change in the Android SDK file structure, Titanium Developer expects the `adb.exe` executable to be in `path&#92;to&#92;android-sdk-windows&#92;tools` whereas it currently resides in `path&#92;to&#92;android-sdk-windows&#92;platform-tools`. To fix this, use the following step.
@@ -367,7 +375,7 @@ mklink adb.exe ..\platform-tools\adb.exe
 mklink AdbWinApi.dll ..\platform-tools\AdbWinApi.dll
 </code>
 
-![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_11.png)
+![screenshot](../assets/images/guides/install_windows/android_packages/screenshot_13.png)
 
 If, for some reason, you cannot create a symbolic link, you can simply copy `adb.exe` and `AdbWinApi.dll` to the tools directory. Bear in mind that, unlike the symbolic link method, you will need to repeat this process whenever you install a package that applies an update to either of these files.
 
@@ -615,6 +623,7 @@ The emulator should boot and the application should launch. If either of these d
 
 # Troubleshoot
 
+
 ## Installation updates fail
 
 On-access antivirus software can interfere with Titanium downloads. If the installation progress meter appears to stall, try disabling your antivirus for the duration of the download and installation.
@@ -640,5 +649,8 @@ These should be set to the address of the server. Ask your network administrator
 
 See the [workaround for a missing adb](#workaround_for_a_missing_%3Ctt%3Eadb%3C/tt%3E) section.
 
+## Run Emulator Screen "Loading..."
 
+If you are not able to boot an emulator, and the **Screen** drop-down menu on your **Run Emulator** tab always shows "Loading..." as in the image below, refer to ticket [#2813](https://appcelerator.lighthouseapp.com/projects/32238-titanium-mobile/tickets/2813) for a possible solution.
 
+![screenshot](../assets/images/guides/install_windows/troubleshoot/screenshot_01.png)
